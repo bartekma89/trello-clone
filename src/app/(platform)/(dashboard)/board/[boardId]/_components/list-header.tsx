@@ -12,9 +12,10 @@ import { ListOptions } from "./list-options";
 
 interface ListHeaderProps {
   data: List;
+  onAddCard: () => void;
 }
 
-export const ListHeader = ({ data }: ListHeaderProps) => {
+export const ListHeader = ({ data, onAddCard }: ListHeaderProps) => {
   const [title, setTitle] = useState(data.title);
   const [isEditing, setIsEditing] = useState(false);
 
@@ -70,7 +71,7 @@ export const ListHeader = ({ data }: ListHeaderProps) => {
     <div className="pt-2 px-2 text-sm font-semibold flex justify-between items-start gap-x-2">
       {isEditing ? (
         <form action={onSubmit} ref={formRef}>
-          <input id="id" name="id" defaultValue={data.id} hidden />
+          <input id="id" name="id" defaultValue={data.id} hidden readOnly />
           <input
             id="boardId"
             name="boardId"
@@ -94,7 +95,7 @@ export const ListHeader = ({ data }: ListHeaderProps) => {
           {title}
         </div>
       )}
-      <ListOptions onAddCard={() => {}} data={data} />
+      <ListOptions onAddCard={onAddCard} data={data} />
     </div>
   );
 };
